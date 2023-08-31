@@ -1,6 +1,0 @@
-#!/bin/bash
-git add .
-sleep 2
-git commit -m "$1"
-sleep 2
-git push
