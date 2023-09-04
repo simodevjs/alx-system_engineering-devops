@@ -1,0 +1,3 @@
+#!/bin/bash
+
+awk '{count[$1]++} END {for (ip in count) print ip}' | sort | head -n 11
