@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Define the file name with special characters
+file_name='*\*\\'"Best School"'\\*$?*****:)'
+
+# Define the text to be written to the file
+file_content="Best School\n"
+
+# Create the file with the desired content
+echo -e "$file_content" > "$file_name"
+
+# Check if the file was created successfully
+if [ -e "$file_name" ]; then
+  echo "File '$file_name' created successfully."
+else
+  echo "Failed to create file '$file_name'."
+fi
