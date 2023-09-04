@@ -1,3 +1,4 @@
 #!/bin/bash
-
-awk '{count[$1]++} END {for (ip in count) print ip}' | sort | head -n 11
+awk '{count[$1]++} END {for (ip in count) print ip, count[ip]}' | \
+  sort -k2,2nr | \
+  head -n 11
