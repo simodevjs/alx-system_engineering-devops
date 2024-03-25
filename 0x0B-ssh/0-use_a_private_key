@@ -3,4 +3,4 @@
 # connects to a r server using ssh 
 # and a private key at ~/.ssh/school
 
-ssh -i ~/.ssh/school ubuntu@100.27.13.288
+ssh -i ~/.ssh/school ubuntu@100.26.138.154
