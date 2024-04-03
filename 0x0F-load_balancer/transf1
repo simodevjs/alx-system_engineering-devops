@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Transfers file from our client to a server
+if [ $# -eq 4 ]
+then
+    echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+else
+    scp -o StrictHostKeyChecking=no -i "~/.ssh/school" "$1" "ubuntu@100.26.138.154":~/
+fi

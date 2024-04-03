@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Install and configure HAProxy load balancer
+
+# Colors for output
+blue='\e[1;34m'
+reset='\033[0m'
+
+echo -e "${blue}Updating system and installing HAProxy...${reset}"
+
+# Install HAProxy if it's not already installed
+if ! command -v haproxy &> /dev/null; then
+    sudo apt-get update -y
+    sudo apt-get install -y haproxy
+else
+    echo "HAProxy is already installed."
+fi
+
+echo "Configuring HAProxy..."
+
+# Back up the original HAProxy configuration file
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
+
+# Write the new HAProxy configuration
+cat << EOF | sudo tee /etc/haproxy/haproxy.cfg
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http_front
+   bind *:80
+   stats uri /haproxy?stats
+   default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server 520382-web-01 100.26.138.154:80 check
+    server 520382-web-02 100.25.202.2:80 check
+EOF
+
+# Enable and restart HAProxy service
+echo "Enabling and restarting HAProxy service..."
+sudo systemctl start haproxy
+sudo systemctl restart haproxy
+
+echo "HAProxy configuration complete."
