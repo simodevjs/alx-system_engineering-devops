@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Remove the original SQL dump file to save space
-rm "${BACKUP_FILE}"
+#rm "${BACKUP_FILE}"
 
 # Print a success message with the name of the created archive
 echo "Backup was successful. File created: ${ARCHIVE_NAME}"
