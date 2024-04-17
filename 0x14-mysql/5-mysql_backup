@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Ensure the script was run with exactly one argument (the MySQL root password)
 if [ "$#" -ne 1 ]; then
@@ -38,5 +38,5 @@ fi
 #rm "${BACKUP_FILE}"
 
 # Print a success message with the name of the created archive
-echo "Backup was successful. File created: ${ARCHIVE_NAME}"
+#echo "Backup was successful. File created: ${ARCHIVE_NAME}"
 
