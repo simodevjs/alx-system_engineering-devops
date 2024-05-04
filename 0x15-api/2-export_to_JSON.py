@@ -1,27 +1,38 @@
 #!/usr/bin/python3
-# Using what you did in the task #0, extend your Python
-# script to export data in the JSON format.
-
+"""Export employee task information to a JSON file."""
 import json
 import requests
-import sys
-
+from sys import argv
 
 if __name__ == "__main__":
-    USER_ID = sys.argv[1]
-    jsonplaceholder = 'https://jsonplaceholder.typicode.com/users'
-    url = jsonplaceholder + '/' + USER_ID
-    response = requests.get(url)
-    username = response.json().get('username')
-    todo_url = url + '/todos'
-    response = requests.get(todo_url)
-    tasks = response.json()
-    dict = {USER_ID: []}
-    for task in tasks:
-        dict[USER_ID].append({
-            "task": task.get("title"),
-            "completed": task.get("completed"),
+    user_id = argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
+
+    # Fetch user information
+    user_response = requests.get(f"{url}users/{user_id}")
+    user = user_response.json()
+    username = user.get('username')
+
+    # Fetch todo information for the user
+    todos_response = requests.get(f"{url}todos", params={"userId": user_id})
+    todos = todos_response.json()
+
+    # Prepare data in the required format
+    tasks_list = []
+    for task in todos:
+        task_info = {
+            "task": task['title'],
+            "completed": task['completed'],
             "username": username
-        })
-        with open('{}.json'.format(USER_ID), 'w') as f:
-            json.dump(dict, f)
+        }
+        tasks_list.append(task_info)
+
+    # Organize data by user ID in a dictionary
+    tasks_dict = {user_id: tasks_list}
+
+    # Write the data to a JSON file
+    with open(f"{user_id}.json", 'w') as jsonfile:
+        json.dump(tasks_dict, jsonfile, indent=4)
+
+# This script fetches data and formats it according to the given structure.
+# It saves the output in a JSON file named with the user's ID.
