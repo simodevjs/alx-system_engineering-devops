@@ -1,35 +1,35 @@
 # 0-strace_is_your_friend.pp
 class apache_debug {
 
-  # Ensure Apache and PHP are installed
-  package { ['apache2', 'php']:
+  # Ensure Apache is installed and managed
+  package { 'apache2':
     ensure => installed,
   }
 
-  # Correct permissions on the Apache configuration directory
-  file { '/etc/apache2/':
-    ensure  => directory,
+  # Manage the Apache main configuration with specific content checks
+  file { '/etc/apache2/apache2.conf':
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
-    mode    => '0755',
-    recurse => true,
-    notify  => Service['apache2'],
+    mode    => '0644',
+    content => template('apache/apache2.conf.erb'), # Ensures content is as expected
+    notify  => Exec['validate_apache_config'],
   }
 
-  # Ensure the Apache service is running and restart it if there's a change
+  # Validate Apache configuration after any changes
+  exec { 'validate_apache_config':
+    command     => 'apachectl configtest',
+    path        => '/usr/sbin:/usr/local/sbin:/bin:/usr/bin',
+    refreshonly => true, # Only run when notified by a change in config
+    subscribe   => File['/etc/apache2/apache2.conf'],
+    notify      => Service['apache2'],
+  }
+
+  # Ensure the service is running and restart on changes
   service { 'apache2':
     ensure    => running,
     enable    => true,
-    subscribe => File['/etc/apache2/'],
-  }
-
-  # Use exec resource to fix common misconfigurations detected via strace
-  exec { 'fix_common_issues':
-    command     => 'bash /path/to/fix_script.sh', # This script should contain the fixes based on strace findings
-    path        => '/usr/local/bin:/bin:/usr/bin',
-    refreshonly => true, # Run only when notified
-    subscribe   => File['/etc/apache2/apache2.conf'],
-    notify      => Service['apache2'],
+    subscribe => File['/etc/apache2/apache2.conf'],
   }
 }
 
