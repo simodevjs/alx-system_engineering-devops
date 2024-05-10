@@ -1,28 +1,36 @@
 # 0-strace_is_your_friend.pp
-# This Puppet manifest is designed to fix a common issue in wp-settings.php
-# that could be causing Apache to return a 500 Internal Server Error.
+class apache_debug {
 
-class wordpress_fix {
-
-  # Ensure Apache is installed
-  package { 'apache2':
+  # Ensure Apache and PHP are installed
+  package { ['apache2', 'php']:
     ensure => installed,
   }
 
-  # Correct a common misconfiguration in WordPress settings
-  exec { 'fix-wordpress':
-    command => 'sed -i \'s/phpp/php/g\' /var/www/html/wp-settings.php',
-    path    => '/bin:/usr/bin:/usr/local/bin',
-    unless  => 'grep -q "phpp" /var/www/html/wp-settings.php', # Only run if "phpp" is found
+  # Correct permissions on the Apache configuration directory
+  file { '/etc/apache2/':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    recurse => true,
     notify  => Service['apache2'],
   }
 
-  # Ensure the Apache service is running and enabled
+  # Ensure the Apache service is running and restart it if there's a change
   service { 'apache2':
     ensure    => running,
     enable    => true,
-    require   => [Package['apache2'], Exec['fix-wordpress']],
+    subscribe => File['/etc/apache2/'],
+  }
+
+  # Use exec resource to fix common misconfigurations detected via strace
+  exec { 'fix_common_issues':
+    command     => 'bash /path/to/fix_script.sh', # This script should contain the fixes based on strace findings
+    path        => '/usr/local/bin:/bin:/usr/bin',
+    refreshonly => true, # Run only when notified
+    subscribe   => File['/etc/apache2/apache2.conf'],
+    notify      => Service['apache2'],
   }
 }
 
-include wordpress_fix
+include apache_debug
