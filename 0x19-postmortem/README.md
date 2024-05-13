@@ -3,7 +3,9 @@
 **/Issue Summary/**
 
 • Duration of the Outage: The outage lasted for 2 hours, from 3:00 PM to 5:00 PM GMT on May 10, 2024.
+
 • Impact: A critical service outage affected our primary web application, resulting in a complete inability for users to access the platform. Approximately 70% of our users experienced either slow response times or time-outs during the incident.
+
 • Root Cause: The root cause was identified as a configuration error in the load balancer, which led to improper request routing.
 
 **/Timeline/**
