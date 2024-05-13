@@ -22,6 +22,7 @@
 **/Detailed Resolution:/** The correct configuration was restored, and the load balancer was restarted, which resolved the outage.
 
 **/Corrective and Preventative Measures/**
+
 **/Improvements/Fixes:/** Improve our change management procedures for critical configurations. Introduce additional automated checks for configuration sanity before deployment.
 
 **/Tasks:/**
