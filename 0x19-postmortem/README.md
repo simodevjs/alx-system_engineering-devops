@@ -27,6 +27,7 @@
 **/Root Cause and Resolution/**
 
 **/Detailed Cause:/** During a routine update, the load balancer configuration was incorrectly updated, causing it to route traffic unevenly across the available servers.
+
 **/Detailed Resolution:/** The correct configuration was restored, and the load balancer was restarted, which resolved the outage.
 
 **/Corrective and Preventative Measures/**
