@@ -27,6 +27,6 @@
 
 **/Tasks:/**
 
-Review and update the change management protocol by May 20, 2024.
-Implement a new CI pipeline stage that automatically tests load balancer configurations in a staging environment by June 1, 2024.
-Conduct a workshop on best practices for change management and incident response for the engineering team by June 15, 2024.
+• Review and update the change management protocol by May 20, 2024.
+• Implement a new CI pipeline stage that automatically tests load balancer configurations in a staging environment by June 1, 2024.
+• Conduct a workshop on best practices for change management and incident response for the engineering team by June 15, 2024.
