@@ -1,0 +1,57 @@
+**/My First Postmortem: The Day We Played Hide and Seek with Our Server Traffic/**
+
+**/Engaging Introduction:/**
+
+Imagine it's a calm Friday afternoon; you're ready to wind down the week, and suddenly, the digital world you've created decides to spice things up. On May 10, 2024, our primary web application decided to play a game of hide and seek with server traffic, leading to a baffling, albeit enlightening, two-hour chase.
+
+**/Issue Summary:/**
+
+Duration of the Outage: A not-so-fun 2 hours from 3:00 PM to 5:00 PM GMT.
+Impact: Picture this—70% of our users were at a virtual standstill, unable to access services, with their patience thinning faster than our server's traffic handling. It was like throwing a large party but forgetting to unlock the front door.
+Root Cause: An enthusiastic yet misguided update to our load balancer configuration led to this unexpected game of digital hide and seek.
+Visual: Diagram of Misconfigured vs. Correct Load Balancer Setup
+(Suggested Image: A side-by-side comparison diagram showing the misconfigured load balancer settings versus the corrected settings, perhaps with humorous icons indicating "confused" traffic vs. "happy" traffic.)
+
+**/Timeline:/**
+
+3:00 PM: Alert sirens from our monitoring tools—our first clue that something was amiss.
+
+3:05 PM: The initial theory? A traffic spike. But alas, our servers were as calm as a cucumber—no spike in sight.
+
+3:30 PM: A deeper dive revealed servers behaving more like they were on a coffee break.
+
+3:45 PM: A wild goose chase into scaling servers, which, as it turned out, was as useful as a chocolate teapot.
+
+4:15 PM: We called in the cavalry—our network operations team.
+
+4:50 PM: Eureka! The misconfigured load balancer was the party pooper.
+
+5:00 PM: Configuration restored, traffic flowing, crisis averted.
+Visual: Timeline with Icons
+(Suggested Image: A timeline with icons representing each key event, such as an alert icon, a magnifying glass for investigation, and a light bulb for the resolution.)
+
+**/Root Cause and Resolution:/**
+
+Detailed Cause: In the excitement of a routine update, someone played a little too fast and loose with the load balancer settings.
+
+Detailed Resolution: A quick rollback to the previous configuration and a system restart brought back harmony and order.
+
+**/Corrective and Preventive Measures:/**
+
+Improvements: Tighten up those change management protocols and ensure configurations are double-checked before they go live.
+
+Tasks:
+
+Update the change management procedures by end of May.
+
+Roll out a new configuration validation step in the deployment pipeline by mid-June.
+
+Hold a debrief session, complete with donuts, to discuss the lessons learned by late June.
+
+Visual: Checklist of Corrective Actions
+(Suggested Image: A checklist graphic with each task ticked off, maybe even include a cartoon donut next to the debrief session for a touch of humor.)
+
+**/Closing Thought:/**
+
+Every outage is a mystery novel in disguise. This incident taught us the value of vigilance, thoroughness, and maybe a bit of humility. Remember, in the digital world, every minute counts, and so does every configuration setting!
+
