@@ -9,11 +9,17 @@
 **/Timeline/**
 
 • 3:00 PM: Issue detected by automated monitoring tools which triggered alerts due to high response time and error rates.
+
 • 3:05 PM: Initial investigation by the Site Reliability Engineering team assumed a spike in traffic, but server metrics did not corroborate this.
+
 • 3:30 PM: Further investigation revealed unusual server behavior; focus shifted to server configuration and networking.
+
 • 3:45 PM: Misdirection occurred due to initial assumption; wasted time in scaling up the servers without checking load balancer configurations.
+
 • 4:15 PM: Incident escalated to the network operations team.
+
 • 4:50 PM: Root cause identified as a misconfiguration in the load balancer.
+
 • 5:00 PM: Configuration error corrected, service gradually restored to full functionality.
 
 **/Root Cause and Resolution/**
