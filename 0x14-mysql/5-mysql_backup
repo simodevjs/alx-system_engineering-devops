@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#this script bla bla blo bllala
+#this script bla bla blo beeeeeeellala
 
 # Check if a password argument is provided
 if [ $# -ne 1 ]; then
